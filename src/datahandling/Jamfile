@@ -1,0 +1,13 @@
+###########################################
+# Datahandling Jamfile
+#
+# $Author: nilspace $ 
+# $Revision: 1.1 $
+# $Date: 2003/08/24 20:58:27 $
+###########################################
+
+SubDir OSESSAME_ROOT src datahandling ;
+SubDirHdrs $(OSESSAME_INC_DIRS) ;
+
+Library libosessame_datahandling : AttitudeHistory.cpp History.cpp OrbitHistory.cpp ;
+

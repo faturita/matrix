@@ -1,0 +1,13 @@
+###########################################
+# Orbit Jamfile
+#
+# $Author: nilspace $ 
+# $Revision: 1.2 $
+# $Date: 2003/09/01 23:03:04 $
+###########################################
+
+SubDir OSESSAME_ROOT src orbit ;
+SubDirHdrs $(OSESSAME_INC_DIRS) ;
+
+Library libosessame_orbit : Orbit.cpp OrbitState.cpp orbitstaterep/OrbitStateRepresentation.cpp orbitstaterep/PositionVelocity.cpp orbitstaterep/Keplerian.cpp orbitframes/OrbitFrame.cpp ;
+

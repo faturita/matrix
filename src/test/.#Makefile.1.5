@@ -1,0 +1,126 @@
+# Spacecraft Simulation Framework
+# Testing Makefile
+#
+# $Author: nilspace $
+# $Revision: 1.5 $
+# $Date: 2003/04/29 20:57:48 $
+
+# Which compiler to use
+CC      = gcc
+
+INCLUDE 	:= -I../ -I../matrix -I../rotation -I../kinematics -I../dynamics -I../utils -I../datahandling -I../orbit -I../environment -I../attitude
+CFLAGS 		= -g -Wall $(INCLUDE)
+OBJFILES 	= ../dynamics/Attitude.o ../dynamics/Propagator.o ../datahandling/History.o ../datahandling/AttitudeHistory.o ../environment/Environment.o ../environment/CentralBody.o ../environment/EarthCentralBody.o ../utils/RungeKuttaIntegrator.o 
+ 
+ROTATIONDIR 	= ../rotation/
+MATRIXDIR 	= ../matrix/
+ENVDIR		= ../environment/
+ORBDIR		= ../orbit/
+INTDIR		= ../utils/
+ATTDIR		= ../attitude/
+DYNDIR		= ../dynamics/
+DATADIR		= ../datahandling/
+UTILDIR		= ../utils/
+
+ROTATION 	:= $(ROTATIONDIR)librotation.a
+MATRIX 		:= $(MATRIXDIR)libcammva.a
+ENVIRONMENT	:= $(ENVDIR)libssfenvironment.a
+ORBIT		:= $(ORBDIR)libssforbit.a
+INTEGRATOR	:= $(INTDIR)libssfintegrator.a
+
+LDFLAGS 	= -L$(MATRIXDIR) -lrotation\
+		-L$(ROTATIONDIR)  -lcammva\
+		-L/usr/lib -lstdc++ 
+		#-L$(ORBDIR) -lssforbit\
+		#-L$(ENVDIR) -lssfenvironment\
+		#-L$(INTDIR) -lssfintegrator\
+
+ATTITUDEOBJ	= ${ATTDIR}AttitudeState.o\
+		${ATTDIR}Attitude.o
+
+INTEGRATOROBJ	= ${INTDIR}Time.o\
+		${INTDIR}RungeKuttaIntegrator.o
+
+ORBOBJFILES	= ${INTEGRATOROBJ}\
+		${ORBDIR}OrbitState.o\
+		${ORBDIR}OrbitFrame.o\
+		${ORBDIR}PositionVelocity.o\
+		${ORBDIR}OrbitStateRepresentation.o\
+		${ORBDIR}Orbit.o
+
+ENVOBJFILES	= ${ENVDIR}Environment.o\
+		${ENVDIR}CentralBody.o\
+		${ENVDIR}EarthCentralBody.o
+
+DYNOBJFILES	= ${DYNDIR}NumericPropagator.o\
+		${DYNDIR}Propagator.o
+
+DATAOBJFILES	= ${DATADIR}History.o\
+		${DATADIR}AttitudeHistory.o\
+		${DATADIR}OrbitHistory.o  
+
+UTILOBJFILES	=${UTILDIR}Plot.o
+
+testDynamics: testDynamics.o ${OBJFILES} ${ROTATION} ${MATRIX}
+	$(CC) -o testDynamics testDynamics.o $(OBJFILES) $(LDFLAGS)
+
+testRotation: testRotation.o ${ROTATION} ${MATRIX}
+	$(CC) -o testRotation testRotation.o ${LDFLAGS}
+
+testOrbitIntegration: testOrbitIntegration.o ${ORBOBJFILES} ${ATTITUDEOBJ} ${MATRIX}
+	$(CC) -o testOrbitIntegration testOrbitIntegration.o\
+		${ATTITUDEOBJ} ${ORBOBJFILES} ${LDFLAGS}	
+
+testAttitudeIntegration: testAttitudeIntegration.o ${ORBOBJFILES} ${ATTITUDEOBJ} ${MATRIX}
+	$(CC) -o testAttitudeIntegration testAttitudeIntegration.o\
+		${ATTITUDEOBJ} ${ORBOBJFILES} ${LDFLAGS}
+
+testEnvironment: testEnvironment.o ${ENVOBJFILES} ${ORBOBJFILES} ${ROTATION} ${MATRIX} ${ATTITUDEOBJ} 
+	$(CC) -o testEnvironment testEnvironment.o\
+	${ENVOBJFILES} ${ORBOBJFILES} ${ATTITUDEOBJ} ${LDFLAGS}	
+
+testPropagation: testPropagation.o ${ENVOBJFILES} ${ORBOBJFILES} ${ROTATION} ${MATRIX} ${ATTITUDEOBJ} ${DYNOBJFILES}
+	$(CC) -o testPropagation testPropagation.o\
+	${ENVOBJFILES} ${ORBOBJFILES} ${ATTITUDEOBJ} ${DYNOBJFILES}\
+	${DATAOBJFILES} ${UTILOBJFILES} ${LDFLAGS}
+	
+
+AttitudeSimulator: AttitudeSimulatorServer.o ${ORBOBJFILES} ${ATTITUDEOBJ} ${MATRIX} 
+	$(CC) -o AttitudeSimulator AttitudeSimulatorServer.o\
+		${ATTITUDEOBJ} ${ORBOBJFILES} ${LDFLAGS}
+
+HokiesatAttitudeSim: HokiesatAttitudeSim.o ${ORBOBJFILES} ${ATTITUDEOBJ} ${MATRIX}
+	$(CC) -o HokiesatAttitudeSim HokiesatAttitudeSim.o\
+		${ATTITUDEOBJ} ${ORBOBJFILES} ${LDFLAGS}
+
+%.o:%.cpp
+	$(CC) $(CFLAGS) $(INCLUDE) -c $*.cpp
+
+clean:
+	-rm *.o
+	-rm testDynamics
+# /*****************************************************************************
+# *	$Log: Makefile,v $
+# *	Revision 1.5  2003/04/29 20:57:48  nilspace
+# *	Updated to work with Propagator.
+# *	
+# *	Revision 1.4  2003/04/27 22:04:33  nilspace
+# *	Created the namespace O_SESSAME.
+# *	
+# *	Revision 1.3  2003/04/23 16:30:59  nilspace
+# *	Various bugfixes & uploading of all changed code for new programmers.
+# *	
+# *	Revision 1.2  2003/04/08 22:52:39  nilspace
+# *	Updated to work with Orbit Integration and Environment tests.
+# *	
+# *	Revision 1.1  2003/03/25 02:26:20  nilspace
+# *	initial submission of test makefile.
+# *	
+# *	Revision 1.2  2003/03/05 20:39:42  nilspace
+# *	Now creates librotation.a in the src/rotation directory.
+# *	
+# *	Revision 1.1  2003/03/05 20:21:44  nilspace
+# *	New Makefile for making the rotation library. Prelminary version, need to add linking into a library.
+# *	
+# *
+# ******************************************************************************/

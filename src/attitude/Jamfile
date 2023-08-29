@@ -1,0 +1,23 @@
+
+###########################################
+#
+# Jamfile for the Attitude level directory
+# 
+#
+# $Author: nilspace $
+# $Revision: 1.3 $
+# $Date: 2003/09/01 23:03:04 $
+###########################################
+
+SubDir OSESSAME_ROOT src attitude ;
+SubDirHdrs $(OSESSAME_INC_DIRS) ;
+
+Library libosessame_attitude : Attitude.cpp AttitudeState.cpp ;
+
+Install $(OSESSAME_INC_DIR) ;
+
+#Objects Attitude.cpp AttitudeState.cpp ;
+
+# Include the full search path for the OSESSAME headers
+#
+#ObjectHdrs Attitude.cpp AttitudeState.cpp : $(OSESSAME_INC_DIRS) ; 

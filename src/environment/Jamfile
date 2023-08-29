@@ -1,0 +1,13 @@
+###########################################
+# Environment Jamfile
+#
+# $Author: nilspace $ 
+# $Revision: 1.1 $
+# $Date: 2003/08/24 20:59:13 $
+###########################################
+
+SubDir OSESSAME_ROOT src environment ;
+SubDirHdrs $(OSESSAME_INC_DIRS) ;
+
+Library libosessame_environment : CentralBody/CentralBody.cpp CentralBody/EarthCentralBody.cpp Environment.cpp CentralBody/Models/TiltedDipoleMagneticModel.cpp ;
+

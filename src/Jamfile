@@ -1,0 +1,23 @@
+###########################################
+#
+# Jamfile for the 'src' level directory
+# Should only 'SubInclude' other levels
+#
+# $Author: nilspace $
+# $Revision: 1.3 $
+# $Date: 2003/08/24 20:59:13 $
+###########################################
+
+# Location of this Jamfile
+SubDir OSESSAME_ROOT src ;
+
+SubInclude OSESSAME_ROOT src matrix ;
+SubInclude OSESSAME_ROOT src attitude ;
+SubInclude OSESSAME_ROOT src datahandling ;
+SubInclude OSESSAME_ROOT src dynamics ;
+SubInclude OSESSAME_ROOT src environment ;
+SubInclude OSESSAME_ROOT src orbit ;
+SubInclude OSESSAME_ROOT src rotation ;
+SubInclude OSESSAME_ROOT src utils ;
+
+

@@ -1,0 +1,9 @@
+digraph "command" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_dba61f842e4221606b60f53ad7c2d896 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="datahandling" fontname="Helvetica", fontsize="10", URL="dir_dba61f842e4221606b60f53ad7c2d896.html"]
+  dir_ded2a315b526b2dc40529fcfd7a73dd2 [shape=box, label="command", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_ded2a315b526b2dc40529fcfd7a73dd2.html"];
+  }
+}

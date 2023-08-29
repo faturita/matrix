@@ -1,0 +1,13 @@
+###########################################
+# Rotation Jamfile
+#
+# $Author: nilspace $ 
+# $Revision: 1.1 $
+# $Date: 2003/08/24 20:59:13 $
+###########################################
+
+SubDir OSESSAME_ROOT src rotation ;
+SubDirHdrs $(OSESSAME_INC_DIRS) ;
+
+Library libosessame_rotation : Rotation.cpp ;
+

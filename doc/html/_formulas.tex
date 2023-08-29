@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{ifthen}
+\usepackage{epsfig}
+\usepackage[utf8]{inputenc}
+% Packages requested by user
+\usepackage{amsmath}
+
+\usepackage{newunicodechar}
+  \newunicodechar{⁻}{${}^{-}$}% Superscript minus
+  \newunicodechar{²}{${}^{2}$}% Superscript two
+  \newunicodechar{³}{${}^{3}$}% Superscript three
+
+\pagestyle{empty}
+\begin{document}
+$R^{31} = R^{32} * R^{21} \Rightarrow R^{32} = R^{31} - R^{21} = R^{32} * R^{21}^{T}/f$ @param _rot2 Rotation to be differenced with. @return rotation of difference between given rotations. */ Rotation Rotation::operator- (const Rotation& _rot2) const { Rotation rotOut(this->operator*(~_rot2)); return rotOut; } /////////////////////////////////////////////////////////////////////// // DirectionCosineMatrix Class /*! \brief Create a DCM equal to the identity matrix [1,0,0;0,1,0;0,0,1]. @return 3x3 Direction Cosine Matrix equal to the identity matrix. */ DirectionCosineMatrix::DirectionCosineMatrix():Matrix(DCM_SIZE, DCM_SIZE) { (*this) = eye(DCM_SIZE); } /*! \brief Create a copy of a DCM from an existing DCM. @param _DCM 3x3 Direction Cosine Matrix to be copied. */ DirectionCosineMatrix::DirectionCosineMatrix(const DirectionCosineMatrix& _DCM):Matrix(DCM_SIZE, DCM_SIZE) { Set(_DCM); } /*! \brief Create a copy of a DCM from an existing matrix of DCM values. @param _DCM 3x3 matrix of DCM values to be copied. */ DirectionCosineMatrix::DirectionCosineMatrix(const Matrix& _DCM):Matrix(DCM_SIZE, DCM_SIZE) { Set(_DCM); } /*! \brief Create a Direction Cosine Matrix (DCM) from Euler Angles. @param _EulerAngles 3x1 matrix of Euler Angles. [rad] @param _Sequence Euler angle rotation sequence. (ie 123, 213, 313, 321, etc). */ DirectionCosineMatrix::DirectionCosineMatrix(const Vector& _EulerAngles, const int& _Sequence):Matrix(DCM_SIZE, DCM_SIZE) { Set(_EulerAngles, _Sequence); } /*! \brief Create a Direction Cosine Matrix (DCM) from Euler Angles. @param _Angle1 first angles in Euler angle set. [rad] @param _Angle2 second angles in Euler angle set. [rad] @param _Angle3 third angles in Euler angle set. [rad] @param _Sequence Euler angle rotation sequence. (ie 123, 213, 313, 321, etc). */ DirectionCosineMatrix::DirectionCosineMatrix(const Angle& _Angle1, const Angle& _Angle2, const Angle& _Angle3, const int& _Sequence):Matrix(DCM_SIZE, DCM_SIZE) { Set(_Angle1, _Angle2, _Angle3, _Sequence); } /*! \brief Create a Direction Cosine Matrix (DCM) from an Euler Axis and rotation. @param _EulerAxis 3x1 Euler Axis vector ($
+\pagebreak
+
+\end{document}
